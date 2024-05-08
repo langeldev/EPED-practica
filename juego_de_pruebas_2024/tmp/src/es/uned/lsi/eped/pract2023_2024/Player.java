@@ -28,8 +28,11 @@ public class Player implements PlayerIF {
 
 	@Override
 	public ListIF<Integer> getPlayListContent(String playListID) {
-		PlayList pl = (PlayList) this.plmanager.getPlayList(playListID);
-		return pl.getPlayList();
+		if (this.plmanager.contains(playListID)) {
+			PlayList pl = (PlayList) this.plmanager.getPlayList(playListID);
+			return pl.getPlayList();
+		}
+		return new List<Integer>();
 	}
 
 	@Override
@@ -51,34 +54,39 @@ public class Player implements PlayerIF {
 
 	@Override
 	public void removePlayList(String playListID) {
-		this.plmanager.removePlayList(playListID);
-		
+		if (this.plmanager.contains(playListID)) {
+			this.plmanager.removePlayList(playListID);
+		}
 	}
 
 	@Override
 	public void addListOfTunesToPlayList(String playListID, ListIF<Integer> lT) {
-		PlayList pl = (PlayList) this.plmanager.getPlayList(playListID);
-		pl.addListOfTunes(lT); 
+		if (this.plmanager.contains(playListID)) {
+			PlayList pl = (PlayList) this.plmanager.getPlayList(playListID);
+			pl.addListOfTunes(lT); 
+		}
 	}
 
 	@Override
 	public void addSearchToPlayList(String playListID, String t, String a, String g, String al, int min_y, int max_y,
 			int min_d, int max_d) {
-		QueryIF query = new Query(t, a, g, al,min_y,max_y, min_d, max_d);
-		ListIF<Integer> list = new List<>();
-		int j= 1;
-		for (int i = 0;  i < this.T.size(); i++) {
-			if ((this.T.getTune(i)).match(query)) {
-				list.insert(j++, i);
+			QueryIF query = new Query(t, a, g, al,min_y,max_y, min_d, max_d);
+			ListIF<Integer> list = new List<>();
+			int j= 1;
+			for (int i = 0;  i < this.T.size(); i++) {
+				if ((this.T.getTune(i)).match(query)) {
+					list.insert(j++, i);
+				}
 			}
-		}
-		addListOfTunesToPlayList(playListID, list);
+			addListOfTunesToPlayList(playListID, list);
 	}
 
 	@Override
 	public void removeTuneFromPlayList(String playListID, int tuneID) {
-		PlayList pl = (PlayList) this.plmanager.getPlayList(playListID);
-		pl.removeTune(tuneID); 
+		if (this.plmanager.contains(playListID)) {
+			PlayList pl = (PlayList) this.plmanager.getPlayList(playListID);
+			pl.removeTune(tuneID);
+		}
 	}
 
 	@Override
@@ -103,9 +111,10 @@ public class Player implements PlayerIF {
 
 	@Override
 	public void addPlayListToPlayBackQueue(String playListID) {
-		PlayList pl = (PlayList) this.plmanager.getPlayList(playListID);
-		this.pbQueue.addTunes(pl.getPlayList());
-		
+		if (this.plmanager.contains(playListID)) {
+			PlayList pl = (PlayList) this.plmanager.getPlayList(playListID);
+			this.pbQueue.addTunes(pl.getPlayList());
+		}
 	}
 
 	@Override

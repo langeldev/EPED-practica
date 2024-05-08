@@ -24,7 +24,6 @@ public class PlayList implements PlayListIF{
 
 	@Override
 	public void addListOfTunes(ListIF<Integer> lT) {
-		// TODO Auto-generated method stub
 		for (int i = 1; i<= lT.size(); i++) {
 			this.list.insert(this.list.size() + 1, lT.get(i));
 		}
@@ -32,7 +31,6 @@ public class PlayList implements PlayListIF{
 
 	@Override
 	public void removeTune(int tuneID) {
-		// TODO Auto-generated method stub
 		int pos = 1;
 		while(pos <= this.list.size()) {
 			if(this.list.get(pos) == tuneID) {

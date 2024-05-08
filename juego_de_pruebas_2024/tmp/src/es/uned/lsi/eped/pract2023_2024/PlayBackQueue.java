@@ -31,7 +31,7 @@ public class PlayBackQueue implements PlayBackQueueIF{
 
 	@Override
 	public int getFirstTune() {
-			return (int) this.queue.getFirst();
+		return (int) this.queue.getFirst();
 	}
 
 	@Override

@@ -37,7 +37,6 @@ public class PlayListManager implements PlayListManagerIF{
 
 	@Override
 	public void removePlayList(String playListID) {
-
 		for(int i =1; i <= this.pl.size(); i++) {
 			if ((this.pl.get(i).getPlayListID()).equals(playListID)) {
 				this.pl.remove(i);
@@ -47,14 +46,13 @@ public class PlayListManager implements PlayListManagerIF{
 
 	@Override
 	public PlayListIF getPlayList(String playListID) {
-		// TODO Auto-generated method stub
-		for(int i =1; i <= this.pl.size(); i++) {
+		int i =1;
+		for(;i <= this.pl.size(); i++) {
 			if ((this.pl.get(i).getPlayListID()).equals(playListID)) {
-				return this.pl.get(i);
+				break;
 			}
 		}
-		//  no persiste datos 
-		return new PlayList(playListID);
+		return this.pl.get(i);
 	}
 
 }
