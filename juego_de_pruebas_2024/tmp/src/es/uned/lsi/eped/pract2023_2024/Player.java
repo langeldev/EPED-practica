@@ -19,50 +19,44 @@ public class Player implements PlayerIF {
 		this.plmanager = new PlayListManager();
 		this.pbQueue = new PlayBackQueue();
 		this.rPlayed = new RecentlyPlayed(maxRecentlyPlayed);
-	
 	}
 
 	@Override
 	public ListIF<String> getPlayListIDs() {
-		// TODO Auto-generated method stu
 		return this.plmanager.getIDs();
 	}
 
 	@Override
 	public ListIF<Integer> getPlayListContent(String playListID) {
-		// TODO Auto-generated method stub
 		PlayList pl = (PlayList) this.plmanager.getPlayList(playListID);
 		return pl.getPlayList();
 	}
 
 	@Override
 	public ListIF<Integer> getPlayBackQueue() {
-		// TODO Auto-generated method stub
 		return this.pbQueue.getContent();
 	}
 
 	@Override
 	public ListIF<Integer> getRecentlyPlayed() {
-		// TODO Auto-generated method stub
-		return  this.rPlayed.getContent(); //this.rPlayed.getContent();
+		return  this.rPlayed.getContent(); 
 	}
 
 	@Override
 	public void createPlayList(String playListID) {
-		// TODO Auto-generated method stub 
-		this.plmanager.createPlayList(playListID);	
+		if (!this.plmanager.contains(playListID)) { 
+			this.plmanager.createPlayList(playListID);
+		}
 	}
 
 	@Override
 	public void removePlayList(String playListID) {
-		// TODO Auto-generated method stub
 		this.plmanager.removePlayList(playListID);
 		
 	}
 
 	@Override
 	public void addListOfTunesToPlayList(String playListID, ListIF<Integer> lT) {
-		// TODO Auto-generated method stub
 		PlayList pl = (PlayList) this.plmanager.getPlayList(playListID);
 		pl.addListOfTunes(lT); 
 	}
@@ -83,14 +77,12 @@ public class Player implements PlayerIF {
 
 	@Override
 	public void removeTuneFromPlayList(String playListID, int tuneID) {
-		// TODO Auto-generated method stub
 		PlayList pl = (PlayList) this.plmanager.getPlayList(playListID);
 		pl.removeTune(tuneID); 
 	}
 
 	@Override
 	public void addListOfTunesToPlayBackQueue(ListIF<Integer> lT) {
-		// TODO Auto-generated method stub
 		this.pbQueue.addTunes(lT);
 	}
 
@@ -105,14 +97,12 @@ public class Player implements PlayerIF {
 				list.insert(j++, i);
 			}
 		}
-		
 		this.pbQueue.addTunes(list);
 		
 	}
 
 	@Override
 	public void addPlayListToPlayBackQueue(String playListID) {
-		// TODO Auto-generated method stub
 		PlayList pl = (PlayList) this.plmanager.getPlayList(playListID);
 		this.pbQueue.addTunes(pl.getPlayList());
 		
@@ -125,11 +115,10 @@ public class Player implements PlayerIF {
 
 	@Override
 	public void play() {
-		// TODO Auto-generated method stub
 		if (!this.pbQueue.isEmpty()){
 			this.rPlayed.addTune(this.pbQueue.getFirstTune());
 			this.pbQueue.extractFirstTune();
 		}
 	}
-
+	
 }

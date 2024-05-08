@@ -22,14 +22,13 @@ public class Tune implements TuneIF{
 
 	@Override
 	public boolean match(QueryIF q) {
-		// TODO Auto-generated method stub
 		return (this.title.equalsIgnoreCase(q.getTitle()) || q.getTitle().equals(""))
 			&& (this.author.equalsIgnoreCase(q.getAuthor()) || q.getAuthor().equals(""))
 			&& (this.genre.equalsIgnoreCase(q.getGenre()) || q.getGenre().equals(""))
 			&& (this.album.equalsIgnoreCase(q.getAlbum()) || q.getAlbum().equals(""))
-			&& (this.year >= q.getMin_year() || q.getMin_year() == -1)
+			&& (this.year >= q.getMin_year())
 			&& (this.year <= q.getMax_year() || q.getMax_year() == -1)
-			&& (this.duration >= q.getMin_duration() || q.getMin_duration() == -1)
+			&& (this.duration >= q.getMin_duration())
 			&& (this.duration <=  q.getMax_duration() || (q.getMax_duration() == -1));
 	}
 }
